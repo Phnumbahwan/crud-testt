@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Requests\ListCustomerRequest;
 use App\Models\Customer;
 use App\Services\ElasticsearchService;
-use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, ElasticsearchService $es)
+    public function index(ListCustomerRequest $request, ElasticsearchService $es)
     {
         $perPage = 15;
         $search = $request->query('search');
@@ -58,7 +58,13 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        $validated = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:customers'
+        ]);
+
+        return Customer::create($validated);
     }
 
     /**
