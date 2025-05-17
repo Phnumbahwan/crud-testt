@@ -62,11 +62,10 @@ services:
     ports:
       - "9200:9200"
     networks:
-      - laravel
+      - backend
 
 networks:
   backend:
-
 
 volumes:
   mysql_data:
