@@ -67,14 +67,9 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        try {
-            $customer->update($request->validated());
+        $customer->update($request->validated());
 
-            return $customer;
-        } catch (\Throwable $th) {
-            info($th);
-            throw $th;
-        }
+        return $customer;
     }
 
     /**
@@ -82,6 +77,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

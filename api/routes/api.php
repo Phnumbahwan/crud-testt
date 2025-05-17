@@ -23,4 +23,5 @@ Route::prefix('customers')->group(function () {
     Route::get('/', [CustomerController::class, 'index']);
     Route::post('/', [CustomerController::class, 'store']);
     Route::put('/{customer}', [CustomerController::class, 'update']);
+    Route::delete('/{customer}', [CustomerController::class, 'destroy']);
 });
