@@ -67,7 +67,14 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        try {
+            $customer->update($request->validated());
+
+            return $customer;
+        } catch (\Throwable $th) {
+            info($th);
+            throw $th;
+        }
     }
 
     /**
