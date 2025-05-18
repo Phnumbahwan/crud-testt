@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-export interface User {
+export interface Customer {
     id: number;
     first_name: string;
     last_name: string;
@@ -36,16 +36,17 @@ export interface PaginatedResponse<T> {
 @Injectable({
     providedIn: 'root'
 })
-export class UserService {
+export class CustomerService {
     private apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
 
-    getUsers(page: number = 1, search: string = ''): Observable<PaginatedResponse<User>> {
-        return this.http.get<PaginatedResponse<User>>(`${this.apiUrl}/customers`, {
+    getCustomers(page: number = 1, search: string = '', perPage: number = 5): Observable<PaginatedResponse<Customer>> {
+        return this.http.get<PaginatedResponse<Customer>>(`${this.apiUrl}/customers`, {
             params: {
                 page: page.toString(),
-                search: search
+                search: search,
+                perPage
             }
         });
     }

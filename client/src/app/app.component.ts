@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TableComponent, TableColumn } from './components/table/table.component';
-import { UserService, User } from './services/user.service';
+import { CustomerService, Customer } from './services/customer.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -22,16 +22,18 @@ export class AppComponent implements OnInit {
     { key: 'contact_number', label: 'Contact Number', sortable: true }
   ];
 
-  data: User[] = [];
+  data: Customer[] = [];
+  searchTerm: string = '';
+  perPage: number = 5;
 
-  constructor(private userService: UserService) { }
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
     this.loadUsers();
   }
 
   loadUsers() {
-    this.userService.getUsers().subscribe({
+    this.customerService.getCustomers(1, this.searchTerm, this.perPage).subscribe({
       next: (response) => {
         this.data = response.data;
       },
@@ -39,6 +41,11 @@ export class AppComponent implements OnInit {
         console.error('Error loading users:', error);
       }
     });
+  }
+
+  handleSearch(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    this.loadUsers();
   }
 
   handleSort(event: { column: string; direction: 'asc' | 'desc' }) {

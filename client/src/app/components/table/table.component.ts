@@ -35,8 +35,9 @@ export interface TableColumn {
 export class TableComponent implements OnChanges {
     @Input() columns: TableColumn[] = [];
     @Input() data: any[] = [];
-    @Input() itemsPerPage: number = 10;
+    @Input() itemsPerPage: number = 5;
     @Output() onSort = new EventEmitter<{ column: string; direction: 'asc' | 'desc' }>();
+    @Output() onSearch = new EventEmitter<string>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -68,14 +69,7 @@ export class TableComponent implements OnChanges {
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.searchTerm = filterValue.trim().toLowerCase();
-        this.filteredData = this.data.filter(item =>
-            Object.values(item).some(value =>
-                String(value).toLowerCase().includes(this.searchTerm)
-            )
-        );
-        if (this.table) {
-            this.table.dataSource = this.filteredData;
-        }
+        this.onSearch.emit(this.searchTerm);
     }
 
     onSortChange(event: any) {
