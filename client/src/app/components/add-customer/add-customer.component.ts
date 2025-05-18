@@ -30,7 +30,7 @@ import { CustomerService } from '../../services/customer.service';
         </button>
       </div>
 
-      <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="max-w-4xl flex flex-row gap-4">
+      <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="max-w-4xl flex flex-col gap-4 m-auto">
         <mat-form-field appearance="fill">
           <mat-label>First Name</mat-label>
           <input matInput formControlName="first_name" required>
@@ -66,7 +66,7 @@ import { CustomerService } from '../../services/customer.service';
           </mat-error>
         </mat-form-field>
 
-        <div class="flex justify-end mt-4">
+        <div class="flex justify-end mt-4 m-auto">
           <button mat-raised-button color="primary" type="submit" [disabled]="customerForm.invalid">
             Add Customer
           </button>

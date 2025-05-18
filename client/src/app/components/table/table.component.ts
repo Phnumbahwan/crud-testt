@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 
 export interface TableColumn {
@@ -55,7 +55,10 @@ export class TableComponent implements OnChanges {
     filteredData: any[] = [];
     searchTerm: string = '';
 
-    constructor(private customerService: CustomerService) { }
+    constructor(
+        private customerService: CustomerService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.displayedColumns = [...this.columns.map(col => col.key), 'actions'];
@@ -109,5 +112,9 @@ export class TableComponent implements OnChanges {
                 }
             });
         }
+    }
+
+    viewCustomer(id: number) {
+        this.router.navigate(['/view', id]);
     }
 } 
