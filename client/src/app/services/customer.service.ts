@@ -46,8 +46,12 @@ export class CustomerService {
             params: {
                 page: page.toString(),
                 search: search,
-                perPage
+                per_page: perPage.toString()
             }
         });
+    }
+
+    createCustomer(customer: Omit<Customer, 'id'>) {
+        return this.http.post<Customer>(`${this.apiUrl}/customers`, customer);
     }
 } 
