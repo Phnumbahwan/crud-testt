@@ -60,7 +60,7 @@ import { CustomerService } from '../../services/customer.service';
 
         <mat-form-field appearance="fill">
           <mat-label>Contact Number</mat-label>
-          <input matInput formControlName="contact_number" required>
+          <input matInput formControlName="contact_number">
           <mat-error *ngIf="customerForm.get('contact_number')?.hasError('required')">
             Contact number is required
           </mat-error>
@@ -92,7 +92,7 @@ export class AddCustomerComponent {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      contact_number: ['', Validators.required]
+      contact_number: ['']
     });
   }
 
