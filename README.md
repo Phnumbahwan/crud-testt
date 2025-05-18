@@ -1,4 +1,4 @@
-## 🛠️ Setup Instructions
+## 🛠️ Setup Instructions For Backend
 
 ### 1️⃣ Copy `.env` File
 
@@ -75,3 +75,28 @@ Your Backend API is available here:
 ```
 http://localhost
 ```
+
+## 🛠️ Setup Instructions for Frontend
+
+### 1️⃣ Run yarn command
+
+For installing nodes dependencies:
+
+```bash
+yarn install
+```
+
+### 2️⃣ Start the app
+
+For running the app:
+
+```bash
+yarn start
+```
+
+Your Frontend API is available here: 
+
+```
+http://localhost:4200/
+```
+
