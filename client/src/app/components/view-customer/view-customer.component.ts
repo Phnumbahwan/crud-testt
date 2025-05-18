@@ -17,13 +17,15 @@ import { CustomerService, Customer } from '../../services/customer.service';
         <div class="container mx-auto p-4">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-2xl font-bold">Customer Details</h1>
-                <button mat-button color="primary" (click)="goBack()">
-                    <mat-icon>arrow_back</mat-icon>
-                    Back to List
-                </button>
+                <div class="flex gap-2">
+                    <button mat-button color="primary" (click)="goBack()">
+                        <mat-icon>arrow_back</mat-icon>
+                        Back to List
+                    </button>
+                </div>
             </div>
 
-            <div *ngIf="customer" class="bg-white shadow-md rounded-lg p-6 max-w-2xl m-auto">
+            <div *ngIf="customer" class="bg-white shadow-md rounded-lg p-6 max-w-2xl m-auto w-full">
                 <div class="grid grid-cols-2 gap-4">
                     
                     <div class="p-4">
@@ -58,6 +60,13 @@ import { CustomerService, Customer } from '../../services/customer.service';
                 </div>
             </div>
 
+            <div class="m-auto flex w-full">
+                <button mat-raised-button class="m-auto mt-5" color="primary" (click)="updateCustomer()">
+                    <mat-icon>edit</mat-icon>
+                    Update Customer
+                </button>
+            </div>
+
             <div *ngIf="!customer" class="text-center py-8">
                 <p class="text-gray-600">Loading customer details...</p>
             </div>
@@ -85,7 +94,7 @@ export class ViewCustomerComponent implements OnInit {
             next: (customer) => {
                 this.customer = customer;
             },
-            error: (error) => {
+            error: (error: Error) => {
                 console.error('Error loading customer:', error);
             }
         });
@@ -93,5 +102,13 @@ export class ViewCustomerComponent implements OnInit {
 
     goBack() {
         this.router.navigate(['/']);
+    }
+
+    updateCustomer() {
+        if (this.customer) {
+            this.router.navigate(['/update', this.customer.id], {
+                state: { customer: this.customer }
+            });
+        }
     }
 } 

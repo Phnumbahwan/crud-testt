@@ -62,4 +62,8 @@ export class CustomerService {
     getCustomer(id: number): Observable<Customer> {
         return this.http.get<Customer>(`${this.apiUrl}/customers/${id}`);
     }
+
+    updateCustomer(id: number, customer: Partial<Customer>): Observable<Customer> {
+        return this.http.put<Customer>(`${this.apiUrl}/customers/${id}`, customer);
+    }
 }

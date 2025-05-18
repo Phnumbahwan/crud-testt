@@ -117,4 +117,8 @@ export class TableComponent implements OnChanges {
     viewCustomer(id: number) {
         this.router.navigate(['/view', id]);
     }
+
+    updateCustomer(id: number) {
+        this.router.navigate(['/update', id]);
+    }
 } 
