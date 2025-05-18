@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
   data: Customer[] = [];
   searchTerm: string = '';
   perPage: number = 5;
+  currentPage: number = 1;
+  total: number = 0;
 
   constructor(private customerService: CustomerService) { }
 
@@ -33,9 +35,10 @@ export class AppComponent implements OnInit {
   }
 
   loadUsers() {
-    this.customerService.getCustomers(1, this.searchTerm, this.perPage).subscribe({
+    this.customerService.getCustomers(this.currentPage, this.searchTerm, this.perPage).subscribe({
       next: (response) => {
         this.data = response.data;
+        this.total = response.total;
       },
       error: (error) => {
         console.error('Error loading users:', error);
@@ -45,11 +48,13 @@ export class AppComponent implements OnInit {
 
   handleSearch(searchTerm: string) {
     this.searchTerm = searchTerm;
+    this.currentPage = 1;
     this.loadUsers();
   }
 
-  handlePageSizeChange(pageSize: number) {
-    this.perPage = pageSize;
+  handlePageChange(event: { page: number; pageSize: number }) {
+    this.currentPage = event.page;
+    this.perPage = event.pageSize;
     this.loadUsers();
   }
 

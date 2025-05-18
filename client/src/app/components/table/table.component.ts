@@ -36,9 +36,10 @@ export class TableComponent implements OnChanges {
     @Input() columns: TableColumn[] = [];
     @Input() data: any[] = [];
     @Input() itemsPerPage: number = 5;
+    @Input() total: number = 0;
     @Output() onSort = new EventEmitter<{ column: string; direction: 'asc' | 'desc' }>();
     @Output() onSearch = new EventEmitter<string>();
-    @Output() onPageSizeChange = new EventEmitter<number>();
+    @Output() onPageChange = new EventEmitter<{ page: number; pageSize: number }>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -65,6 +66,10 @@ export class TableComponent implements OnChanges {
         if (this.table) {
             this.table.dataSource = this.filteredData;
         }
+        if (this.paginator) {
+            this.paginator.pageIndex = 0; // Initialize to first page
+            this.paginator.pageSize = this.itemsPerPage;
+        }
     }
 
     applyFilter(event: Event) {
@@ -78,8 +83,10 @@ export class TableComponent implements OnChanges {
         this.onSort.emit({ column: active, direction });
     }
 
-    handlePageSizeChange(event: PageEvent) {
-        console.log(event.pageSize)
-        this.onPageSizeChange.emit(event.pageSize);
+    handlePageChange(event: PageEvent) {
+        this.onPageChange.emit({
+            page: event.pageIndex + 1,
+            pageSize: event.pageSize
+        });
     }
 } 

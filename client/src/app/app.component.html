@@ -169,8 +169,8 @@
 <div class="container m-auto p-4">
   <h1 class="text-2xl font-bold mb-6">BASIC CRUD</h1>
 
-  <app-table [columns]="columns" [data]="data" [itemsPerPage]="perPage" (onSort)="handleSort($event)"
-    (onSearch)="handleSearch($event)" (onPageSizeChange)="handlePageSizeChange($event)">
+  <app-table [columns]="columns" [data]="data" [itemsPerPage]="perPage" [total]="total" (onSort)="handleSort($event)"
+    (onSearch)="handleSearch($event)" (onPageChange)="handlePageChange($event)">
   </app-table>
 </div>
 
