@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule, MatTable } from '@angular/material/table';
@@ -32,7 +32,7 @@ export interface TableColumn {
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.css']
 })
-export class TableComponent {
+export class TableComponent implements OnChanges {
     @Input() columns: TableColumn[] = [];
     @Input() data: any[] = [];
     @Input() itemsPerPage: number = 10;
@@ -48,7 +48,15 @@ export class TableComponent {
 
     ngOnInit() {
         this.displayedColumns = this.columns.map(col => col.key);
-        this.filteredData = [...this.data];
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['data']) {
+            this.filteredData = [...this.data];
+            if (this.table) {
+                this.table.dataSource = this.filteredData;
+            }
+        }
     }
 
     ngAfterViewInit() {
