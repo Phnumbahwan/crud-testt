@@ -16,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index(ListCustomerRequest $request, ElasticsearchService $es)
     {
-        $perPage = 15;
+        $perPage = $request->query('perPage', 5);
         $search = $request->query('search');
         $page = $request->query('page', 1);
 

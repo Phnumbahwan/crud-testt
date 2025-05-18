@@ -22,6 +22,7 @@ class ListCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'perPage' => ['nullable', 'integer', 'min:5'],
             'search' => ['nullable', 'string', 'max:255'],
             'page' => ['nullable', 'integer', 'min:1']
         ];
