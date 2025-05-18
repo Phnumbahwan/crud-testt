@@ -22,4 +22,9 @@ class ElasticsearchService
     {
         return Http::put("{$this->host}/{$index}/_doc/{$id}", $data)->json();
     }
+
+    public function delete(string $index, string $id): array
+    {
+        return Http::delete("{$this->host}/{$index}/_doc/{$id}")->json();
+    }
 }
