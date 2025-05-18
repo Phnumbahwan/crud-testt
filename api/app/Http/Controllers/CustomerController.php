@@ -64,6 +64,14 @@ class CustomerController extends Controller
         return Customer::create($request->all());
     }
 
+    /**
+     * Show the specified resource in storage.
+     */
+    public function show(Customer $customer)
+    {
+        return $customer;
+    }
+
 
     /**
      * Update the specified resource in storage.
