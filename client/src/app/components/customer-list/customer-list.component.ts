@@ -29,7 +29,8 @@ import { CustomerService, Customer } from '../../services/customer.service';
         [total]="total"
         (onSort)="handleSort($event)"
         (onSearch)="handleSearch($event)"
-        (onPageChange)="handlePageChange($event)">
+        (onPageChange)="handlePageChange($event)"
+        (onDelete)="handleDelete($event)">
       </app-table>
     </div>
   `
@@ -81,5 +82,9 @@ export class CustomerListComponent implements OnInit {
 
     handleSort(event: { column: string; direction: 'asc' | 'desc' }) {
         console.log('Sort event:', event);
+    }
+
+    handleDelete(event: { id: number }) {
+        this.loadUsers(); // Refresh the list after deletion
     }
 } 

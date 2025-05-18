@@ -54,4 +54,8 @@ export class CustomerService {
     createCustomer(customer: Omit<Customer, 'id'>) {
         return this.http.post<Customer>(`${this.apiUrl}/customers`, customer);
     }
-} 
+
+    deleteCustomer(id: number) {
+        return this.http.delete(`${this.apiUrl}/customers/${id}`);
+    }
+}

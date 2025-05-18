@@ -8,7 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import { CustomerService } from '../../services/customer.service';
 
 export interface TableColumn {
     key: string;
@@ -29,6 +31,7 @@ export interface TableColumn {
         MatFormFieldModule,
         MatIconModule,
         MatButtonModule,
+        MatTooltipModule,
         RouterLink
     ],
     templateUrl: './table.component.html',
@@ -42,6 +45,7 @@ export class TableComponent implements OnChanges {
     @Output() onSort = new EventEmitter<{ column: string; direction: 'asc' | 'desc' }>();
     @Output() onSearch = new EventEmitter<string>();
     @Output() onPageChange = new EventEmitter<{ page: number; pageSize: number }>();
+    @Output() onDelete = new EventEmitter<{ id: number }>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -51,8 +55,10 @@ export class TableComponent implements OnChanges {
     filteredData: any[] = [];
     searchTerm: string = '';
 
+    constructor(private customerService: CustomerService) { }
+
     ngOnInit() {
-        this.displayedColumns = this.columns.map(col => col.key);
+        this.displayedColumns = [...this.columns.map(col => col.key), 'actions'];
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -90,5 +96,18 @@ export class TableComponent implements OnChanges {
             page: event.pageIndex + 1,
             pageSize: event.pageSize
         });
+    }
+
+    deleteCustomer(id: number) {
+        if (confirm('Are you sure you want to delete this customer?')) {
+            this.customerService.deleteCustomer(id).subscribe({
+                next: () => {
+                    this.onDelete.emit({ id });
+                },
+                error: (error) => {
+                    console.error('Error deleting customer:', error);
+                }
+            });
+        }
     }
 } 
