@@ -20,10 +20,6 @@ import { CustomerService, Customer } from '../../services/customer.service';
     <div class="container m-auto p-4">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold">BASIC CRUD</h1>
-        <button mat-raised-button color="primary" routerLink="/add">
-          <mat-icon>add</mat-icon>
-          Add Customer
-        </button>
       </div>
 
       <app-table 

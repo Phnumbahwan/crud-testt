@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 export interface TableColumn {
     key: string;
@@ -27,7 +28,8 @@ export interface TableColumn {
         MatInputModule,
         MatFormFieldModule,
         MatIconModule,
-        MatButtonModule
+        MatButtonModule,
+        RouterLink
     ],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.css']

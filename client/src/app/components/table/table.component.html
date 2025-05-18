@@ -1,10 +1,18 @@
 <div class="mat-elevation-z8">
-    <!-- Search Bar -->
-    <mat-form-field class="w-full">
-        <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-        <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+
+    <div style="display: flex; flex-direction: row; gap: 1rem; justify-content: space-between;">
+        <!-- Search Bar -->
+        <mat-form-field class="w-full">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" routerLink="/add">
+            <mat-icon>add</mat-icon>
+            Add Customer
+        </button>
+    </div>
 
     <!-- Table -->
     <table mat-table [dataSource]="filteredData" matSort (matSortChange)="onSortChange($event)" class="w-full">
