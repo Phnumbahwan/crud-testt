@@ -48,6 +48,11 @@ export class AppComponent implements OnInit {
     this.loadUsers();
   }
 
+  handlePageSizeChange(pageSize: number) {
+    this.perPage = pageSize;
+    this.loadUsers();
+  }
+
   handleSort(event: { column: string; direction: 'asc' | 'desc' }) {
     console.log('Sort event:', event);
   }

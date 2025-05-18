@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleCha
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule, MatTable } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,6 +38,7 @@ export class TableComponent implements OnChanges {
     @Input() itemsPerPage: number = 5;
     @Output() onSort = new EventEmitter<{ column: string; direction: 'asc' | 'desc' }>();
     @Output() onSearch = new EventEmitter<string>();
+    @Output() onPageSizeChange = new EventEmitter<number>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -75,5 +76,10 @@ export class TableComponent implements OnChanges {
     onSortChange(event: any) {
         const { active, direction } = event;
         this.onSort.emit({ column: active, direction });
+    }
+
+    handlePageSizeChange(event: PageEvent) {
+        console.log(event.pageSize)
+        this.onPageSizeChange.emit(event.pageSize);
     }
 } 
