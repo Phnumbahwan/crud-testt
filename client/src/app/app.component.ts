@@ -32,8 +32,8 @@ export class AppComponent implements OnInit {
 
   loadUsers() {
     this.userService.getUsers().subscribe({
-      next: (users) => {
-        this.data = users;
+      next: (response) => {
+        this.data = response.data;
       },
       error: (error) => {
         console.error('Error loading users:', error);
