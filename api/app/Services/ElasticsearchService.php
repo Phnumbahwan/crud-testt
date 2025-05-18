@@ -17,4 +17,9 @@ class ElasticsearchService
     {
         return Http::post("{$this->host}/{$index}/_search", $query)->json();
     }
+
+    public function create(string $index, string $id, array $data): array
+    {
+        return Http::put("{$this->host}/{$index}/_doc/{$id}", $data)->json();
+    }
 }
