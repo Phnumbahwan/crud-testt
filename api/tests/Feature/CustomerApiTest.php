@@ -2,8 +2,6 @@
 
 use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use function Pest\uses;
-use function Pest\it;
 
 uses(RefreshDatabase::class);
 
