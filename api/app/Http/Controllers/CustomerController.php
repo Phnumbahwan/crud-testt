@@ -21,13 +21,16 @@ class CustomerController extends Controller
         $page = $request->query('page', 1);
 
         if ($search) {
+            $searchWildcard = '*' . strtolower($search) . '*';
+
             $query = [
                 'from' => ($page - 1) * $perPage,
                 'size' => $perPage,
                 'query' => [
-                    'multi_match' => [
-                        'query' => $search,
-                        'fields' => ['first_name', 'last_name', 'email']
+                    'query_string' => [
+                        'query' => $searchWildcard,
+                        'fields' => ['first_name', 'last_name', 'email'],
+                        'default_operator' => 'AND'
                     ]
                 ]
             ];
